@@ -105,3 +105,4 @@ python procesamiento.py
 ---
 
 *GameSec Monitor v1.0 — Proyecto Integrador Taller de Programación I (UNAHUR)*
+```
