@@ -4,9 +4,13 @@
 > *Universidad Nacional de Hurlingham (UNAHUR) — Taller de Programación I*
 
 ```text
-======================================================================
-[ SYSTEM STATUS: ONLINE ]   [ SECURITY ENGINE: HEURISTIC ACTIVE ]
-======================================================================
+   ______ ___    __  ___ ______ _____ ______ ______
+  / ____//   |  /  |/  // ____// ___// ____// ____/
+ / / __ / /| | / /|_/ // __/   \__ \/ __/  / /     
+/ /_/ // ___ |/ /  / // /___  ___/ / /___ / /___   
+\____//_/  |_/_/  /_//_____/ /____/_____/ \____/   
+
+          [ SYSTEM STATUS: ONLINE // THREAT ENGINE: ACTIVE ]
 
 [![Python Version](https://img.shields.io/badge/Python-3.12-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Dependencies](https://img.shields.io/badge/Dependencies-Zero_External-brightgreen.svg?style=for-the-badge)](https://docs.python.org/3/)
