@@ -1,12 +1,13 @@
-# 🎮 GAMESEC MONITOR v1.0
-> **Telemetría de Servidores & Motor Heurístico de Ciberseguridad en Python Puro**  
+# 🎮 GAME SEC MONITOR v1.0
+
+> **Plataforma de Telemetría de Servidores & Motor Heurístico de Ciberseguridad**  
 > *Universidad Nacional de Hurlingham (UNAHUR) — Taller de Programación I*
 
-/ |  / \  |  /  | ___/ || / | | |  _  / _ \ | |/| |  | _ |  || |
-| || |/ ___ | |  | | | ) | || | _//   __|  |||____/|_|
-|  /  |/ _ | \ | |_ |   / _ |  _ \ | |/| | | | |  | || |  | || | | | |) | | |  | | || | |\  || |  | || || |  _ < ||  ||_/|| _|| || ___/|| _\
-      [ SYSTEM STATUS: ONLINE // THREAT ENGINE: ACTIVE ]
-      
+```text
+======================================================================
+[ SYSTEM STATUS: ONLINE ]   [ SECURITY ENGINE: HEURISTIC ACTIVE ]
+======================================================================
+
 [![Python Version](https://img.shields.io/badge/Python-3.12-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Dependencies](https://img.shields.io/badge/Dependencies-Zero_External-brightgreen.svg?style=for-the-badge)](https://docs.python.org/3/)
 [![Security Engine](https://img.shields.io/badge/Security-Heuristic_v1.0-red.svg?style=for-the-badge)](https://github.com/Taller-de-Programacion-1/TP_Integrador_Taller_I)
