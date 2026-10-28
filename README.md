@@ -12,11 +12,6 @@
 
           [ SYSTEM STATUS: ONLINE // THREAT ENGINE: ACTIVE ]
 
-[![Python Version](https://img.shields.io/badge/Python-3.12-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Dependencies](https://img.shields.io/badge/Dependencies-Zero_External-brightgreen.svg?style=for-the-badge)](https://docs.python.org/3/)
-[![Security Engine](https://img.shields.io/badge/Security-Heuristic_v1.0-red.svg?style=for-the-badge)](https://github.com/Taller-de-Programacion-1/TP_Integrador_Taller_I)
-[![License](https://img.shields.io/badge/UNAHUR-Taller_Progra_I-purple.svg?style=for-the-badge)](https://unahur.edu.ar)
-
 ---
 
 ## 🛰️ Visión General del Sistema
@@ -97,10 +92,12 @@ python carga.py
 
 # Probar algoritmos de procesamiento y seguridad
 python procesamiento.py
+---
 📊 Dataset & Telemetría Analizada
 Registros Procesados: 150 sesiones de juego.
 Servidores Monitoreados: SA-BuenosAires, EU-Frankfurt, NA-Virginia, SA-SaoPaulo.
 Métricas Principales: Ping Promedio (ms), FPS Promedio, Duración de Partida (min), Intentos de Login Fallidos, Reportes por Trampa.
+---
 👨‍💻 Escuadrón de Desarrollo (UNAHUR)
 Nombre y Apellido
 Carrera
