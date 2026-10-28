@@ -3,13 +3,9 @@ Taller de Programación I (Ciclo Lectivo 2026)
 Universidad Nacional de Hurlingham — Instituto de Tecnología e Ingeniería
 
 👥 Integrantes del Equipo
-Nombre y Apellido: xxx| DNI: xxx 
-Nombre y Apellido: xxx| DNI: xxx 
-Nombre y Apellido: xxx| DNI: xxx 
-Nombre y Apellido: xxx| DNI: xxx 
-Nombre y Apellido: xxx| DNI: xxx 
-Nombre y Apellido: xxx| DNI: xxx 
-
+Nombre y Apellido: [Nombre Completo 1] | DNI: [DNI 1] | Carrera: Tecnicatura Univ. en Ciberseguridad / IA / Videojuegos
+Nombre y Apellido: [Nombre Completo 2] | DNI: [DNI 2] | Carrera: Tecnicatura Univ. en Ciberseguridad / IA / Videojuegos
+Nombre y Apellido: [Nombre Completo 3] | DNI: [DNI 3] | Carrera: Tecnicatura Univ. en Ciberseguridad / IA / Videojuegos
 🛠️ Arquitectura del Proyecto
 El sistema está desarrollado bajo el paradigma modular en Python 3.10+, utilizando exclusivamente la librería estándar (csv, math, os, datetime), sin dependencias externas como Pandas o NumPy.
 
@@ -19,7 +15,6 @@ gamesec_monitor/
 ├── main.py              # Interfaz de consola interactiva (menú) y exportación del reporte
 ├── gamesec_logs.csv     # Dataset con 150 registros de telemetría
 └── README.md            # Documentación y datos del grupo
-
 🚀 Instrucciones de Ejecución
 Abrir la terminal o el entorno de Visual Studio Code en la carpeta raíz del proyecto.
 Ejecutar el script principal con el siguiente comando:
