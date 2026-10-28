@@ -1,28 +1,110 @@
-GameSec Monitor: Telemetría de Servidores de Videojuegos y Detección de Incidentes
-Taller de Programación I (Ciclo Lectivo 2026)
-Universidad Nacional de Hurlingham — Instituto de Tecnología e Ingeniería
+# 🎮 GAMESEC MONITOR v1.0
+> **Telemetría de Servidores & Motor Heurístico de Ciberseguridad en Python Puro**  
+> *Universidad Nacional de Hurlingham (UNAHUR) — Taller de Programación I*
 
-👥 Integrantes del Equipo
-Nombre y Apellido: [Nombre Completo 1] | DNI: [DNI 1] | Carrera: Tecnicatura Univ. en Ciberseguridad / IA / Videojuegos
-Nombre y Apellido: [Nombre Completo 2] | DNI: [DNI 2] | Carrera: Tecnicatura Univ. en Ciberseguridad / IA / Videojuegos
-Nombre y Apellido: [Nombre Completo 3] | DNI: [DNI 3] | Carrera: Tecnicatura Univ. en Ciberseguridad / IA / Videojuegos
-🛠️ Arquitectura del Proyecto
-El sistema está desarrollado bajo el paradigma modular en Python 3.10+, utilizando exclusivamente la librería estándar (csv, math, os, datetime), sin dependencias externas como Pandas o NumPy.
+██████╗  █████╗ ███╗   ███╗███████╗███████╗███╗   ██╗███████╗██████╗ ██╔════╝ ██╔══██╗████╗ ████║██╔════╝██╔════╝████╗  ██║██╔════╝██╔════╝ ██║  ███╗███████║██╔████╔██║█████╗  ███████╗██╔██╗ ██║█████╗  ██║
+██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ╚════██║██║╚██╗██║██╔══╝  ██║
+╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗███████╗██║ ╚████║███████╗╚██████╗ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚══════╝╚═╝  ╚═══╝╚══════╝ ╚═════╝ [ SYSTEM STATUS: ONLINE // THREAT ENGINE: ACTIVE ]
 
-gamesec_monitor/
-├── carga.py             # Lectura, casteo explícito de tipos y validación del CSV
-├── procesamiento.py     # Estadísticas globales, acumuladores por servidor y motor de reglas
-├── main.py              # Interfaz de consola interactiva (menú) y exportación del reporte
-├── gamesec_logs.csv     # Dataset con 150 registros de telemetría
-└── README.md            # Documentación y datos del grupo
-🚀 Instrucciones de Ejecución
-Abrir la terminal o el entorno de Visual Studio Code en la carpeta raíz del proyecto.
-Ejecutar el script principal con el siguiente comando:
-python main.py
-Utilizar el menú interactivo para navegar por las opciones:
-1: Cargar el dataset gamesec_logs.csv.
-2: Consultar métricas globales del sistema.
-3: Analizar rendimiento agrupado por servidor.
-4: Auditar sesiones sospechosas y críticas.
-5: Generar el informe reporte_gamesec.txt.
-6: Salir.
+[![Python Version](https://img.shields.io/badge/Python-3.12-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Dependencies](https://img.shields.io/badge/Dependencies-Zero_External-brightgreen.svg?style=for-the-badge)](https://docs.python.org/3/)
+[![Security Engine](https://img.shields.io/badge/Security-Heuristic_v1.0-red.svg?style=for-the-badge)](https://github.com/Taller-de-Programacion-1/TP_Integrador_Taller_I)
+[![License](https://img.shields.io/badge/UNAHUR-Taller_Progra_I-purple.svg?style=for-the-badge)](https://unahur.edu.ar)
+
+---
+
+## 🛰️ Visión General del Sistema
+
+**GameSec Monitor** es una plataforma de consola desarrollada en Python puro diseñada para auditar la salud operativa de la infraestructura de servidores multijugador y detectar amenazas cibernéticas en tiempo real (como ataques de fuerza bruta en inicio de sesión o uso indebido de trampas/hacks).
+
+El sistema opera bajo la **restricción estricta de cero librerías externas**, procesando directamente la telemetría enviada por los nodos distribuidos (`gamesec_logs.csv`).
+
+---
+
+## ⚙️ Arquitectura Modular
+
+La solución está construida sobre una arquitectura desacoplada de 3 capas:
+
+              ┌────────────────────────┐
+              │    gamesec_logs.csv    │
+              └───────────┬────────────┘
+                          │
+                          ▼
+               ┌──────────────────────┐
+               │       carga.py       │ ──► Parseo & Casteo
+               └──────────┬───────────┘
+                          │
+                          ▼
+               ┌──────────────────────┐
+               │   procesamiento.py   │ ──► Métricas & Heurística
+               └──────────┬───────────┘
+                          │
+                          ▼
+               ┌──────────────────────┐
+               │       main.py        │ ──► Menu CLI & Exportación
+               └──────────┬───────────┘
+                          │
+                          ▼
+              ┌────────────────────────┐
+              │  reporte_gamesec.txt   │
+              └────────────────────────┘
+
+* **`carga.py`**: Motor de ingesta con validación de archivos y casteo explícito de tipos (`int`, `float`, `str`).
+* **`procesamiento.py`**: Núcleo analítico. Incluye diccionario acumulador dinámico para servidores y el motor heurístico de ciberseguridad.
+* **`main.py`**: Interfaz de línea de comandos (CLI) interactiva y generador del informe de auditoría consolidado.
+
+---
+
+## 🛡️ Motor Heurístico de Ciberseguridad
+
+Cada sesión de juego procesada por **GameSec Monitor** es analizada mediante un árbol de decisión heurístico para categorizar el nivel de amenaza:
+
+| Nivel de Alerta | Criterio de Activación Heurística | Diagnóstico Operativo |
+| :--- | :--- | :--- |
+| 🔴 **CRÍTICO** | `reportes_trampa >= 3` **O** `intentos_fallidos >= 4` | Detección de cheats/hacks o ataque de fuerza bruta |
+| 🟡 **SOSPECHOSO** | (`ping > 200` **Y** `intentos_fallidos >= 2`) **O** (`reportes_trampa == 2`) | Inestabilidad de red anómala o comportamiento atípico |
+| 🟢 **NORMAL** | No cumple las condiciones de sospechoso ni crítico | Sesión operativa limpia |
+
+---
+
+## 🚀 Instalación y Ejecución
+
+### Prerrequisitos
+* Python 3.10 o superior (Sin necesidad de `pip install`, requiere únicamente la librería estándar).
+* Git y Visual Studio Code.
+
+### Despliegue Local
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/Taller-de-Programacion-1/TP_Integrador_Taller_I.git
+
+# 2. Ingresar al directorio del proyecto
+cd TP_Integrador_Taller_I
+
+# 3. Ejecutar el sistema principal
+python main.
+
+🧪 Pruebas Unitarias de Módulos
+Para auditar componentes individuales antes de la compilación final:
+# Probar ingesta y validación CSV
+python carga.py
+
+# Probar algoritmos de procesamiento y seguridad
+python procesamiento.py
+📊 Dataset & Telemetría Analizada
+Registros Procesados: 150 sesiones de juego.
+Servidores Monitoreados: SA-BuenosAires, EU-Frankfurt, NA-Virginia, SA-SaoPaulo.
+Métricas Principales: Ping Promedio (ms), FPS Promedio, Duración de Partida (min), Intentos de Login Fallidos, Reportes por Trampa.
+👨‍💻 Escuadrón de Desarrollo (UNAHUR)
+Nombre y Apellido
+Carrera
+Rol en el Proyecto
+Karina Parra
+Licenciatura en Ciberseguridad
+Módulo Ingesta & Carga (carga.py)
+Integrante 2
+Tec. en Inteligencia Artificial / Ciberseguridad
+Algoritmos de Procesamiento (procesamiento.py)
+Integrante 3
+Tec. en Inteligencia Artificial / Ciberseguridad
+Interfaz CLI & Reportes (main.py
