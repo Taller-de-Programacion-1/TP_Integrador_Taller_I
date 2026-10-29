@@ -4,6 +4,9 @@ Proyecto: GameSec Monitor - Taller de Programación I (UNAHUR)
 Descripción: Carga y validación del archivo CSV de telemetría de servidores.
 """
 
+import csv
+import os
+
 def cargar_telemetria(ruta_archivo):
     # Verificar que el archivo exista antes de abrirlo
     if not os.path.exists(ruta_archivo):
