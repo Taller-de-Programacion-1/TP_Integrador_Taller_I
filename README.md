@@ -117,7 +117,7 @@ python procesamiento.py
 
 | Nombre y Apellido | Carrera | Rol en el Proyecto |
 | :--- | :--- | :--- |
-| **Kary Parra** | Tec. en Inteligencia Artificial / Ciberseguridad | Módulo Ingesta & Carga (`carga.py`) |
+| **Karina Parra** | Licenciatura en Ciberseguridad | Módulo Ingesta & Carga (`carga.py`) |
 | **Integrante 2** | Tec. en Inteligencia Artificial / Ciberseguridad | Algoritmos de Procesamiento (`procesamiento.py`) |
 | **Integrante 3** | Tec. en Inteligencia Artificial / Ciberseguridad | Interfaz CLI & Reportes (`main.py`) |
 

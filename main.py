@@ -1,9 +1,7 @@
 """
 Módulo: main.py
-Descripción: Punto de entrada principal del sistema GameSec Monitor.
-             Presenta el menú interactivo, invoca las funciones operativas
-             y exporta el reporte de auditoría consolidado.
-Uso: Librería estándar de Python (datetime, os).
+Proyecto: GameSec Monitor - Taller de Programación I (UNAHUR)
+Descripción: Menú interactivo de consola e integración de módulos.
 """
 
 from datetime import datetime
@@ -11,20 +9,17 @@ import os
 import carga
 import procesamiento
 
-def exportar_reporte(sesiones: list[dict], ruta_salida: str = "reporte_gamesec.txt") -> None:
-    """
-    Escribe un informe de texto plano estructurado en 4 secciones.
-    """
+def exportar_reporte(sesiones, ruta_salida="reporte_gamesec.txt"):
     if not sesiones:
-        print("\n[!] No hay datos cargados para exportar el reporte.")
+        print("\n[!] No hay datos cargados para exportar.")
         return
 
-    stats_globales = procesamiento.calcular_estadisticas_globales(sesiones)
-    stats_servidor = procesamiento.analizar_por_servidor(sesiones)
+    stats = procesamiento.calcular_estadisticas_globales(sesiones)
+    servidores = procesamiento.analizar_por_servidor(sesiones)
     frecuencias, criticos = procesamiento.clasificar_incidentes(sesiones)
     
-    total = stats_globales["total_sesiones"]
-    fecha_actual = datetime.now().strftime("%d/%m/%Y")
+    total = stats["total_sesiones"]
+    fecha = datetime.now().strftime("%d/%m/%Y")
     
     pct_normal = round((frecuencias["Normal"] / total) * 100, 2)
     pct_sospechoso = round((frecuencias["Sospechoso"] / total) * 100, 2)
@@ -34,27 +29,24 @@ def exportar_reporte(sesiones: list[dict], ruta_salida: str = "reporte_gamesec.t
         f.write("======================================================================\n")
         f.write("               REPORTE DE AUDITORÍA Y TELEMETRÍA — GAMESEC           \n")
         f.write("======================================================================\n")
-        f.write(f"Fecha de generación: {fecha_actual}\n\n")
+        f.write(f"Fecha de generación: {fecha}\n\n")
         
-        # [1] RESUMEN GLOBAL OPERATIVO
         f.write("[1] RESUMEN GLOBAL OPERATIVO\n")
         f.write("----------------------------------------------------------------------\n")
         f.write(f"Total de sesiones procesadas: {total}\n")
-        f.write(f"Ping promedio global: {stats_globales['ping_promedio']} ms\n")
-        f.write(f"Duración media de partida: {stats_globales['duracion_promedio']} min\n")
-        f.write(f"Partidas de alta competencia (Ranked/Torneo): {stats_globales['porcentaje_competitivas']:.2f}%\n\n")
+        f.write(f"Ping promedio global: {stats['ping_promedio']} ms\n")
+        f.write(f"Duración media de partida: {stats['duracion_promedio']} min\n")
+        f.write(f"Partidas de alta competencia: {stats['porcentaje_competitivas']}%\n\n")
         
-        # [11] RENDIMIENTO REGIONAL POR SERVIDOR
-        f.write("[11] RENDIMIENTO REGIONAL POR SERVIDOR\n")
+        f.write("[2] RENDIMIENTO REGIONAL POR SERVIDOR\n")
         f.write("----------------------------------------------------------------------\n")
-        f.write(f"{'Servidor':<18} | {'Sesiones':<8} | {'Ping Promedio':<13} | {'FPS Promedio':<12}\n")
+        f.write(f"{'Servidor':<18} | {'Sesiones':<8} | {'Ping Promed.':<13} | {'FPS Promed.':<12}\n")
         f.write("----------------------------------------------------------------------\n")
-        for srv, datos in stats_servidor.items():
-            f.write(f"{srv:<18} | {datos['cantidad']:<8} | {datos['ping_promedio']:<10.2f} ms | {datos['fps_promedio']:<9.2f} fps\n")
+        for srv, d in servidores.items():
+            f.write(f"{srv:<18} | {d['cantidad']:<8} | {d['ping_promedio']:<10.2f} ms | {d['fps_promedio']:<9.2f} fps\n")
         f.write("\n")
         
-        # [12] AUDITORÍA DE SEGURIDAD E INCIDENTES
-        f.write("[12] AUDITORÍA DE SEGURIDAD E INCIDENTES\n")
+        f.write("[3] AUDITORÍA DE SEGURIDAD E INCIDENTES\n")
         f.write("----------------------------------------------------------------------\n")
         f.write("Distribución de estados de seguridad:\n")
         f.write(f"  • Normales:    {frecuencias['Normal']:>3} sesiones ({pct_normal:>6.2f}%)\n")
@@ -67,52 +59,52 @@ def exportar_reporte(sesiones: list[dict], ruta_salida: str = "reporte_gamesec.t
             f.write(f"      Motivo: {c['motivo']}\n")
         f.write("\n")
         
-        # [13] CONCLUSIONES TÉCNICAS DEL EQUIPO
-        f.write("[13] CONCLUSIONES TÉCNICAS DEL EQUIPO\n")
+        f.write("[4] CONCLUSIONES TÉCNICAS DEL EQUIPO\n")
         f.write("----------------------------------------------------------------------\n")
-        f.write("1. Los servidores locales (SA-BuenosAires y SA-SaoPaulo) registran una latencia óptima (<80 ms),\n")
-        f.write("   mientras que regiones internacionales como EU y NA presentan picos de ping que superan los 190 ms.\n")
-        f.write("2. El motor heurístico identificó un 6.67% de eventos críticos vinculados a ataques de fuerza bruta\n")
-        f.write("   en la autenticación y acumulación intencional de denuncias por trampa.\n")
-        f.write("3. La alta proporción de sesiones competitivas (53.33%) exige priorizar filtros anti-cheat proactivos\n")
-        f.write("   para preservar la integridad del servicio en torneos y partidas clasificatorias.\n")
+        f.write("1. Los servidores locales (SA-BuenosAires y SA-SaoPaulo) registran latencia óptima (<80 ms),\n")
+        f.write("   mientras que los servidores de EU y NA presentan picos de latencia.\n")
+        f.write("2. El motor heurístico detectó un 6.67% de eventos críticos vinculados a ataques de fuerza bruta\n")
+        f.write("   y reportes repetidos por uso de trampas.\n")
+        f.write("3. La proporción de sesiones competitivas (53.33%) requiere monitoreo continuo para mantener\n")
+        f.write("   la estabilidad de las partidas clasificatorias.\n")
         f.write("======================================================================\n")
         f.write("                     FIN DEL REPORTE GAMESEC                          \n")
         f.write("======================================================================\n")
         
-    print(f"\n[✓] Reporte consolidado exportado exitosamente a '{ruta_salida}'")
+    print(f"\n[✓] Reporte exportado a '{ruta_salida}'")
 
 
-def mostrar_menu() -> None:
-    """Muestra el panel de control en la consola."""
+def mostrar_menu():
     print("\n=========================================")
     print("      GAMESEC MONITOR - PANEL DE CONTROL ")
     print("=========================================")
     print("1. Cargar y validar dataset")
-    print("2. Ver estadísticas globales de servidores")
-    print("3. Ver rendimiento por región de servidor")
-    print("4. Auditar incidentes de seguridad (Críticos y Sospechosos)")
-    print("5. Exportar reporte consolidado (reporte_gamesec.txt)")
+    print("2. Ver estadísticas globales")
+    print("3. Ver rendimiento por servidor")
+    print("4. Auditar incidentes de seguridad")
+    print("5. Exportar reporte (reporte_gamesec.txt)")
     print("6. Salir")
     print("=========================================")
 
 
 def main():
-    """Bucle principal de ejecución del programa."""
     sesiones_cargadas = []
+    
     ruta_dataset = "gamesec_logs.csv"
+    if not os.path.exists(ruta_dataset) and os.path.exists("/workspace/knowledge/gamesec_logs.csv"):
+        ruta_dataset = "/workspace/knowledge/gamesec_logs.csv"
 
     while True:
         mostrar_menu()
-        opcion = input("Seleccione una opción (1-6): ").strip()
+        opcion = input("Opción (1-6): ").strip()
         
         if opcion == "1":
             print("\n--- CARGA Y VALIDACIÓN DE DATASET ---")
             try:
                 sesiones_cargadas = carga.cargar_telemetria(ruta_dataset)
-                print(f"[✓] Éxito: Se cargaron {len(sesiones_cargadas)} registros desde '{ruta_dataset}'.")
+                print(f"[✓] Se cargaron {len(sesiones_cargadas)} registros desde '{ruta_dataset}'.")
             except Exception as e:
-                print(f"[!] Error al cargar el dataset: {e}")
+                print(f"[!] Error al cargar: {e}")
                 
         elif opcion == "2":
             print("\n--- ESTADÍSTICAS GLOBALES ---")
@@ -120,13 +112,13 @@ def main():
                 print("[!] Primero debe cargar el dataset (Opción 1).")
             else:
                 stats = procesamiento.calcular_estadisticas_globales(sesiones_cargadas)
-                print(f"• Total de sesiones procesadas: {stats['total_sesiones']}")
-                print(f"• Ping promedio global:        {stats['ping_promedio']} ms")
-                print(f"• Duración media por partida:  {stats['duracion_promedio']} min")
-                print(f"• Porcentaje de competitivas:  {stats['porcentaje_competitivas']}%")
+                print(f"• Total de sesiones:          {stats['total_sesiones']}")
+                print(f"• Ping promedio global:       {stats['ping_promedio']} ms")
+                print(f"• Duración media por partida: {stats['duracion_promedio']} min")
+                print(f"• Partidas competitivas:      {stats['porcentaje_competitivas']}%")
                 
         elif opcion == "3":
-            print("\n--- RENDIMIENTO POR REGIÓN DE SERVIDOR ---")
+            print("\n--- RENDIMIENTO POR SERVIDOR ---")
             if not sesiones_cargadas:
                 print("[!] Primero debe cargar el dataset (Opción 1).")
             else:
@@ -161,11 +153,11 @@ def main():
                 exportar_reporte(sesiones_cargadas, "reporte_gamesec.txt")
                 
         elif opcion == "6":
-            print("\n¡Gracias por utilizar GameSec Monitor! Saliendo del sistema...")
+            print("\n¡Gracias por usar GameSec Monitor! Saliendo...")
             break
             
         else:
-            print("\n[!] Opción no válida. Ingrese un número del 1 al 6.")
+            print("\n[!] Opción inválida. Ingrese un número del 1 al 6.")
 
 
 if __name__ == "__main__":
